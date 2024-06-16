@@ -30,13 +30,17 @@ class PatientResource extends Resource implements HasShieldPermissions
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('gender')
+                Forms\Components\Select::make('gender')
                     ->required()
-                    ->maxLength(255),
+                    ->options(
+                        [
+                            'Laki-laki' => 'Laki-laki',
+                            'Perempuan' => 'Perempuan'
+                        ]
+                    ),
                 Forms\Components\DatePicker::make('date_of_birth')
                     ->required(),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255),
+                Forms\Components\TextArea::make('address'),
             ]);
     }
 
