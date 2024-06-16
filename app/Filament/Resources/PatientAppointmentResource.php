@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PatientAppointmentResource\Pages;
-use App\Filament\Resources\PatientAppointmentResource\RelationManagers;
-use App\Models\PatientAppointment;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Models\PatientAppointment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PatientAppointmentResource\Pages;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
+use App\Filament\Resources\PatientAppointmentResource\RelationManagers;
 
-class PatientAppointmentResource extends Resource
+class PatientAppointmentResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = PatientAppointment::class;
 
@@ -95,6 +96,18 @@ class PatientAppointmentResource extends Resource
             'index' => Pages\ListPatientAppointments::route('/'),
             'create' => Pages\CreatePatientAppointment::route('/create'),
             'edit' => Pages\EditPatientAppointment::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any'
         ];
     }
 }
