@@ -53,10 +53,10 @@ class PatientAppointmentResource extends Resource implements HasShieldPermission
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('patient_id')
+                Tables\Columns\TextColumn::make('patient.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('doctor_id')
+                Tables\Columns\TextColumn::make('doctor.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_of_appointment')
