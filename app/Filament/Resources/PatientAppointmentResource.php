@@ -24,21 +24,28 @@ class PatientAppointmentResource extends Resource implements HasShieldPermission
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('patient_id')
+                Forms\Components\Select::make('patient_id')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('doctor_id')
+                    ->relationship('patient','name')
+                    ->searchable(),
+                Forms\Components\Select::make('doctor_id')
                     ->required()
-                    ->numeric(),
+                    ->relationship('doctor','name'),
                 Forms\Components\DatePicker::make('date_of_appointment')
                     ->required(),
                 Forms\Components\Textarea::make('note')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('prescription')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
                     ->required()
-                    ->maxLength(255),
+                    ->options(
+                        [
+                        'jadwal dibuat' => 'Jadwal Dibuat',
+                        'selesai periksa' => 'Selesai Periksa',
+                        'obat sudah diserahkan' => 'Obat Sudah Diserahkan'
+                        ] 
+                    ),
             ]);
     }
 
