@@ -40,7 +40,7 @@ class PatientResource extends Resource implements HasShieldPermissions
                     ),
                 Forms\Components\DatePicker::make('date_of_birth')
                     ->required(),
-                Forms\Components\TextArea::make('address'),
+                Forms\Components\Textarea::make('address'),
             ]);
     }
 
