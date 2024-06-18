@@ -54,8 +54,11 @@ class PatientAppointmentResource extends Resource implements HasShieldPermission
     {
         return $table
             ->modifyQueryUsing(function(Builder $query){
-                $userId = Auth::user()->id;
-                $query->where('doctor_id', $userId);
+                $isDoctor = Auth::user()->hasRole('Dokter');
+                if($isDoctor){
+                    $userId = Auth::user()->id;
+                    $query->where('doctor_id', $userId);
+                }                
             }) 
             ->columns([
                 Tables\Columns\TextColumn::make('patient.name')
