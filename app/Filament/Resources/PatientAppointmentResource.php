@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PatientAppointmentResource\Pages;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use App\Filament\Resources\PatientAppointmentResource\RelationManagers;
+use Illuminate\Support\Facades\Auth;
 
 class PatientAppointmentResource extends Resource implements HasShieldPermissions
 {
@@ -52,6 +53,10 @@ class PatientAppointmentResource extends Resource implements HasShieldPermission
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function(Builder $query){
+                $userId = Auth::user()->id;
+                $query->where('doctor_id', $userId);
+            }) 
             ->columns([
                 Tables\Columns\TextColumn::make('patient.name')
                     ->numeric()
